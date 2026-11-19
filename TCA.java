@@ -10,8 +10,6 @@ public class TCA {
         int erros = 0;
         int maxErros = 8;
 
-        System.out.println("\nVamos lá!! Descubra a palavra abaixo");
-
         char[] palavra = palavraSecreta.toCharArray();
         // "toCharArray" converte uma String num novo vetor de char
         // O caso acima transforma a variável "palavraSecreta" num vetor de char chamado
@@ -29,7 +27,7 @@ public class TCA {
 
         while (erros < maxErros) {
 
-            System.out.printf("Tentativas restantes: %d\n\n", (maxErros - erros));
+            System.out.printf("\nTentativas restantes: %d\n", (maxErros - erros));
             System.out.println(progresso);
             System.out.println("\nDigite uma letra: ");
 
@@ -61,8 +59,11 @@ public class TCA {
                 System.out.printf("A letra %c já foi digitada\n", chute);
                 continue;
             }
-            letrasChutadas[chute - 'A'] = true;
             // verifica se a letra chutada é repetida
+
+            letrasChutadas[chute - 'A'] = true;
+            // declara que a letra chutada é repetida
+            
 
             boolean acertou = false;
 
@@ -89,7 +90,7 @@ public class TCA {
                 }
             }
             // verifica no progresso (palavra secreta escondida) se há algum travessão
-            // se não há mais nenhum travessão, significa que a palavra secreta foi
+            // pois se não há mais nenhum travessão, significa que a palavra secreta foi
             // descoberta
 
             if (ganhou) {
@@ -117,39 +118,49 @@ public class TCA {
             int escolha = BibliotecaTCA.escolherNoMenu("JOGO DA PHORKA", opcoes);
             BibliotecaTCA.limparTela();
 
-            if (escolha == 0) {
+            switch (escolha) {
+                case 0:
+                    System.out.println("\n\nModo Escolhido: NORMAL");
+                    BibliotecaTCA.esperar(2000);
 
-                System.out.println("\nModo Escolhido: NORMAL");
-                BibliotecaTCA.esperar(2000);
+                    System.out.println("\nVamos lá!! Descubra a palavra secreta");
 
-                String[] palavras = {"JAVA", "CODIGO", "COMPUTADOR", "UBUNTU", "TERMINAL", "WINDOWS", "OGAIHT", "TREBREH"};
+                    String[] palavras = { "JAVA", "CODIGO", "COMPUTADOR", "UBUNTU", "TERMINAL", "WINDOWS" };
 
-                Random sorteio = new Random();
-                int posicao = sorteio.nextInt(palavras.length);
+                    Random sorteio = new Random();
+                    int posicao = sorteio.nextInt(palavras.length);
 
-                String palavraSecreta = palavras[posicao];
+                    String palavraSecreta = palavras[posicao];
 
-                jogar(palavraSecreta);
+                    jogar(palavraSecreta);
 
-                /////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // OPÇÃO 0 (MODO NORMAL)
+                    ////////////////////////////////////////////////////////////////////////////////////////////////
+                case 1:
+                    System.out.println("\n\nModo Escolhido: PERSONALIZADO");
+                    BibliotecaTCA.esperar(2000);
 
-            } // OPÇÃO 0 (MODO NORMAL)
+                    System.out.println("\nVamos Lá!! Digite sua palavra secreta abaixo:");
+                    String palavraDoUsuario = sc.nextLine();
 
-            else if (escolha == 1) {
+                    jogar(palavraDoUsuario);
 
-                
-            } // OPÇÃO 1 (MODO PERSONALIZADO)
+                    // OPÇÃO 1 (MODO PERSONALIZADO)
+                    ///////////////////////////////////////////////////////////////////////////////////////////////
 
-            ////////////////////////////////////////////////////////////////////////////////////////////////////
+                case 2:
+                    System.out.println("\nModo Escolhido: EVIL HANGMAN");
+                    BibliotecaTCA.esperar(2000);
 
-            else if (escolha == 2) {
+                    System.out.println("\nVamos lá!! Descubra a palavra secreta");
 
-            } // OPÇÃO 2 (EVIL HANGMAN)
+                    // OPÇÃO 2 (EVIL HANGMAN)
+                    ///////////////////////////////////////////////////////////////////////////////////////////////
 
-            ////////////////////////////////////////////////////////////////////////////////////////////////////
+            } // SWITCH
 
-        } // WHILE (TRUE)
+        } // WHILE
 
-    }// MAIN
+    } // MAIN
 
-}// CLASS
+} // CLASS
