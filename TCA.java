@@ -133,7 +133,7 @@ public class TCA {
                     String palavraSecreta = palavras[posicao];
 
                     jogar(palavraSecreta);
-
+                    break;
                     // OPÇÃO 0 (MODO NORMAL)
                     ////////////////////////////////////////////////////////////////////////////////////////////////
                 case 1:
@@ -141,10 +141,11 @@ public class TCA {
                     BibliotecaTCA.esperar(2000);
 
                     System.out.println("\nVamos Lá!! Digite sua palavra secreta abaixo:");
-                    String palavraDoUsuario = sc.nextLine();
-
+                    String palavraDoUsuario = sc.nextLine().trim().toUpperCase();
+                    BibliotecaTCA.limparTela();
+                    
                     jogar(palavraDoUsuario);
-
+                    break;
                     // OPÇÃO 1 (MODO PERSONALIZADO)
                     ///////////////////////////////////////////////////////////////////////////////////////////////
 
