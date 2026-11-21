@@ -123,10 +123,53 @@ public class TCA {
                     System.out.println("\n\nModo Escolhido: NORMAL");
                     BibliotecaTCA.esperar(2000);
 
-                    System.out.println("\nVamos lá!! Descubra a palavra secreta");
+                    System.out.println("\n Digite 0 para tema padrão, 1 para verbos, 2 para nomes, 3 para adjetivos e 4 para estados e capitais");
 
                     String[] palavras = { "JAVA", "CODIGO", "COMPUTADOR", "UBUNTU", "TERMINAL", "WINDOWS" };
 
+                    int lista = scanner.nextInt();
+
+                    switch(lista){
+
+                        case 0:
+
+                        System.out.println("\n TEMA PADRÃO");
+                                           
+                        palavras = new String[]{ "JAVA", "CODIGO", "COMPUTADOR", "UBUNTU", "TERMINAL", "WINDOWS" };
+                        break;
+
+                        case 1: 
+
+                        System.out.println("\n TEMA VERBOS");
+                        palavras = new String[]{"AMAR", "CAMINHAR", "CANTAR", "DANCAR", "VIVER", "MORRER", "SUBIR", "CAIR", "ESTUDAR", "FALAR", "JOGAR", "MORAR", "PENSAR", "TRABALHAR", "VIAJAR", "VOAR", "BEBER", "COMER", "CORRER", "CRESCER", "ESCREVER", "FAZER", "LER", "MOVER", "NASCER", "SABER", "TER", "VER", "ABRIR", "CONSTRUIR", "DECIDIR", "DORMIR", "FUGIR", "IR", "OUVIR", "PARTIR", "PEDIR", "RIR", "SORRIR","AMO", "CAMINHO", "CANTA", "DANCAM", "ESTUDOU", "FALAVAM", "JOGUEI", "SUBA", "DEIXA","CAIA", "MORAMOS", "PENSA", "TRABALHOU", "VIAJAM", "VOEI", "BEBEU", "COMEMOS", "CORRIA", "CRESCEM", "ESCREVI", "FAZ", "LEU", "MOVEM", "NASCEU", "SABEMOS", "TEM", "VIU", "ABRIU", "CONSTROI", "DECIDIMOS", "DORMIU", "FOGEM", "VAI", "OUVIU", "PARTIRAM", "PEDE", "RIU", "SORRIEM"};
+                        break;
+
+                        case 2:
+
+                        System.out.println("\n TEMA NOMES");
+                        palavras = new String[]{"JUNIOR", "RAPHAEL", "JOSE", "FELIPE", "WILL", "MATHEUS", "PEDRO", "CALEB", "MIGUEL", "ARTHUR", "HERBERT", "THIAGO", "EDSON", "LELO", "JOAO", "LUCAS", "GABRIEL", "MARIA", "JESSICA", "AMANDA", "CAMILA", "ALICE", "JENIFER", "CAROLINA", "GABRIELA", "DANIELA", "PATRICIA", "LETICIA", "JULIANA", "BRUNA", "THAIS", "NICOLE", "KELLY", "VIVIANE"};
+                        break;
+
+                        case 3:
+
+                        System.out.println("\n TEMA ADJETIVOS");
+                        palavras = new String[]{"INTELIGENTE", "CRIATIVO", "ALEGRE", "TRISTE", "FOFO", "BONITA", "LEGAL", "LOUCO", "CORAJOSO", "DEDICADO", "HONESTO", "PACIENTE", "GENTIL", "CURIOSO", "AMBICIOSO", "FLEXIVEL", "OTIMISTA", "PROATIVO", "RESILIENTE", "SINCERO", "OBSERVADOR", "CARISMATICO", "PERSISTENTE", "ORGANIZADO", "PRUDENTE", "TRANQUILO", "DINAMICO", "ESTUDIOSO", "GENEROSO", "LEAL", "CONFIANTE", "SENSIVEL", "OBJETIVO", "AUTENTICO", "SOLIDARIO"};
+
+                        case 4:
+
+                        System.out.println("\n TEMA ESTADOS E CAPITAIS");
+                        palavras = new String[]{"ARACAJU", "BELEM", "BH", "BV", "BRASILIA", "CG", "CUIABA", "CURITIBA", "FLORIPA", "FORTALEZA", "GOIANIA", "JP", "MACAPA", "MACEIO", "MANAUS", "NATAL", "PALMAS", "POA", "PVH", "RECIFE", "RB", "RJ", "SALVADOR", "SLZ", "SP", "TERESINA", "VITORIA","ACRE", "ALAGOAS", "AMAPA", "AMAZONAS", "BAHIA", "CEARA", "DF", "ES", "GOIAS", "MARANHAO", "MT", "MS", "MG", "PARA", "PARAIBA", "PARANA", "PERNAMBUCO", "PIAUI", "RJ", "RN", "RS", "RONDONIA", "RORAIMA", "SC", "SP", "SERGIPE", "TOCANTINS"};
+                        break;
+
+                        default:
+
+                        System.out.println("\n NUMERO ESCOLHIDO NÃO EXISTE, TEMA PADRÃO ESCOLHIDO");
+                        palavras = new String[]{ "JAVA", "CODIGO", "COMPUTADOR", "UBUNTU", "TERMINAL", "WINDOWS" };
+                        break;
+                            
+                    }//SIWTCH
+
+                    if()
                     Random sorteio = new Random();
                     int posicao = sorteio.nextInt(palavras.length);
 
