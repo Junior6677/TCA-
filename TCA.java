@@ -88,12 +88,14 @@ public class TCA {
             "~~~~~~~~~~~"
         }
     };
+    // Matriz em que cada linha do estágio é uma String, e que o índice do estágio é o número de erros
 
     public static void mostrarBoneco(int erros) {
         for (int j = 0; j < BONECO[erros].length; j++) {
             System.out.println(BONECO[erros][j]);
         }
     }
+    // "BONECO[erros]" é o estágio atual, o laço imprime as 6 linhas dele
 
     public static void jogar(String palavraSecreta) {
 
@@ -102,15 +104,15 @@ public class TCA {
 
         char[] palavra = palavraSecreta.toCharArray();
         // "toCharArray" converte uma String num novo vetor de char
-        // O caso acima transforma a variável "palavraSecreta" num vetor de char chamado
-        // de "palavra"
+        // O caso acima transforma a variável "palavraSecreta" num vetor de char chamado de "palavra"
 
         char[] progresso = new char[palavraSecreta.length()];
+        // "progresso" será a palavra escondida em travessões
 
         for (int i = 0; i < progresso.length; i++) {
             progresso[i] = '_';
         }
-        // transforma cada caractere da palavra secreta num travessão para esconde-la
+        // transforma o progresso nos travessões
 
         boolean[] letrasChutadas = new boolean[26];
 
@@ -123,7 +125,7 @@ public class TCA {
 
             String letra = sc.nextLine().trim().toUpperCase();
             // "toUpperCase" converte uma String digitada para maiúsculo
-            // "trim" ignora os espaço vazio ao lado da String. Ex.: "a "
+            // "trim" ignora os espaços em branco ao lado da String. Ex.: "a "
 
             BibliotecaTCA.limparTela();
             // método da BibliotecaTCA.java
@@ -132,7 +134,7 @@ public class TCA {
                 System.out.println("\nSem resposta");
                 continue;
             }
-            // verifica se o usúario não respondeu (deu enter sem uma entrada)
+            // verifica se o usuário não respondeu (deu enter sem uma entrada)
 
             char chute = letra.charAt(0);
             // "charAt" retorna um caractere de uma posição específica da entrada
@@ -144,26 +146,28 @@ public class TCA {
                 System.out.printf("%c não é uma letra de A a Z\n", chute);
                 continue;
             }
-            // verifica se a entrada digitada pelo usuário é uma letra
+            // É usado como referência os valores dos caracteres 'A' e 'Z' em decimal
+            // 'A' = 65 em decimal; 'Z' = 90 em decimal
+            // Acima ou abaixo disso são outros caracteres
 
             if (letrasChutadas[chute - 'A']) {
                 System.out.printf("A letra %c já foi digitada\n", chute);
                 continue;
             }
-            // verifica se a letra chutada é repetida
+            // Usa como referência o 'A' pois é o caractere inicial
 
             letrasChutadas[chute - 'A'] = true;
-            // declara que a letra chutada é repetida
+            // marca a letra como já chutada, para bloquear um segundo chute igual
 
             boolean acertou = false;
 
+            // verifica se acertou o chute:
             for (int j = 0; j < palavra.length; j++) {
                 if (chute == palavra[j]) {
                     progresso[j] = palavra[j];
                     acertou = true;
                 }
             }
-            // verifica se acertou o chute
 
             if (acertou) {
                 System.out.println("Parabéns, você acertou uma letra!!");
@@ -179,9 +183,8 @@ public class TCA {
                     ganhou = false;
                 }
             }
-            // verifica no progresso (palavra secreta escondida) se há algum travessão
-            // pois se não há mais nenhum travessão, significa que a palavra secreta foi
-            // descoberta
+            // o for acima verifica no progresso (palavra secreta escondida) se há algum travessão
+            // a palavra é descoberta quando não sobra nenhum travessão no progresso
 
             if (ganhou) {
                 BibliotecaTCA.limparTela();
@@ -189,7 +192,7 @@ public class TCA {
                 System.out.println("");
                 System.out.println(progresso);
                 System.out.println("\nParabéns, você descobriu a palavra secreta!!");
-                BibliotecaTCA.esperar(6000);
+                BibliotecaTCA.esperar(5500);
                 break;
             }
         }
@@ -198,17 +201,31 @@ public class TCA {
             mostrarBoneco(erros);
             System.out.println("\nBoa tentativa, não foi dessa vez");
             System.out.println("A palavra secreta era: " + palavraSecreta);
-            BibliotecaTCA.esperar(6000);
+            BibliotecaTCA.esperar(5500);
         }
     }
+
+    public static String[] lerTema(String arquivo) {
+
+        String texto = BibliotecaTCA.lerDoArquivo(arquivo);
+
+        if (texto == null) {
+            return null;
+        }
+
+        String[] palavras = texto.trim().split("\n");
+        return palavras;
+    }
+    // "split("\n")" transforma em vetor (sugestão de BibliotecaTCA.java, linha 585) 
+    // "null" indica arquivo ausente
 
     public static void main(String[] args) {
 
         BibliotecaTCA.esperar(1000);
         System.out.println("\nJogo feito por:\n\nJunior Felipe L. dos Anjos\nRaphael Victor D. Eleoteri");
-        BibliotecaTCA.esperar(4500);
+        BibliotecaTCA.esperar(4000);
 
-        String[] opcoes = {"MODO NORMAL", "MODO PERSONALIZADO", "EVIL HANGMAN"};
+        String[] opcoes = {"MODO NORMAL", "MODO PERSONALIZADO"};
 
         while (true) {
 
@@ -218,7 +235,7 @@ public class TCA {
             if (escolha == -1) {
                 // ESC foi pressionado: encerra o programa
                 System.out.println("Obrigado por jogar :)\n");
-                return;
+                break;
             }
 
             switch (escolha) {
@@ -230,6 +247,7 @@ public class TCA {
 
                     int lista = sc.nextInt();
                     sc.nextLine();
+                    // O "nextLine" acima consome o Enter que ficou no buffer depois do número
 
                     String[] palavras;
 
@@ -241,7 +259,7 @@ public class TCA {
                             System.out.println("\nTEMA ESCOLHIDO: PADRÃO");
                             BibliotecaTCA.esperar(2000);
                             System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = new String[]{"JAVA", "CODIGO", "COMPUTADOR", "UBUNTU", "TERMINAL", "WINDOWS"};
+                            palavras = lerTema("temaPadrao.txt");
                             break;
 
                         case 1:
@@ -250,7 +268,7 @@ public class TCA {
                             System.out.println("\nTEMA ESCOLHIDO: VERBOS");
                             BibliotecaTCA.esperar(2000);
                             System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = new String[]{"AMAR", "CAMINHAR", "CANTAR", "DANCAR", "VIVER", "MORRER", "SUBIR", "CAIR", "ESTUDAR", "FALAR", "JOGAR", "MORAR", "PENSAR", "TRABALHAR", "VIAJAR", "VOAR", "BEBER", "COMER", "CORRER", "CRESCER", "ESCREVER", "FAZER", "LER", "MOVER", "NASCER", "SABER", "TER", "VER", "ABRIR", "CONSTRUIR", "DECIDIR", "DORMIR", "FUGIR", "IR", "OUVIR", "PARTIR", "PEDIR", "RIR", "SORRIR", "AMO", "CAMINHO", "CANTA", "DANCAM", "ESTUDOU", "FALAVAM", "JOGUEI", "SUBA", "DEIXA", "CAIA", "MORAMOS", "PENSA", "TRABALHOU", "VIAJAM", "VOEI", "BEBEU", "COMEMOS", "CORRIA", "CRESCEM", "ESCREVI", "FAZ", "LEU", "MOVEM", "NASCEU", "SABEMOS", "TEM", "VIU", "ABRIU", "CONSTROI", "DECIDIMOS", "DORMIU", "FOGEM", "VAI", "OUVIU", "PARTIRAM", "PEDE", "RIU", "SORRIEM"};
+                            palavras = lerTema("temaVerbos.txt");
                             break;
 
                         case 2:
@@ -259,7 +277,7 @@ public class TCA {
                             System.out.println("\nTEMA ESCOLHIDO: NOMES");
                             BibliotecaTCA.esperar(2000);
                             System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = new String[]{"JUNIOR", "RAPHAEL", "JOSE", "FELIPE", "WILL", "MATHEUS", "PEDRO", "CALEB", "MIGUEL", "ARTHUR", "HERBERT", "THIAGO", "EDSON", "LELO", "JOAO", "LUCAS", "GABRIEL", "MARIA", "JESSICA", "AMANDA", "CAMILA", "ALICE", "JENIFER", "CAROLINA", "GABRIELA", "DANIELA", "PATRICIA", "LETICIA", "JULIANA", "BRUNA", "THAIS", "NICOLE", "KELLY", "VIVIANE"};
+                            palavras = lerTema("temaNomes.txt");
                             break;
 
                         case 3:
@@ -268,7 +286,7 @@ public class TCA {
                             System.out.println("\nTEMA ESCOLHIDO: ADJETIVOS");
                             BibliotecaTCA.esperar(2000);
                             System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = new String[]{"INTELIGENTE", "CRIATIVO", "ALEGRE", "TRISTE", "FOFO", "BONITA", "LEGAL", "LOUCO", "CORAJOSO", "DEDICADO", "HONESTO", "PACIENTE", "GENTIL", "CURIOSO", "AMBICIOSO", "FLEXIVEL", "OTIMISTA", "PROATIVO", "RESILIENTE", "SINCERO", "OBSERVADOR", "CARISMATICO", "PERSISTENTE", "ORGANIZADO", "PRUDENTE", "TRANQUILO", "DINAMICO", "ESTUDIOSO", "GENEROSO", "LEAL", "CONFIANTE", "SENSIVEL", "OBJETIVO", "AUTENTICO", "SOLIDARIO"};
+                            palavras = lerTema("temaAdjetivos.txt"); 
                             break;
 
                         case 4:
@@ -277,7 +295,7 @@ public class TCA {
                             System.out.println("\nTEMA ESCOLHIDO: ESTADOS E CAPITAIS");
                             BibliotecaTCA.esperar(2000);
                             System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = new String[]{"ARACAJU", "BELEM", "BH", "BV", "BRASILIA", "CG", "CUIABA", "CURITIBA", "FLORIPA", "FORTALEZA", "GOIANIA", "JP", "MACAPA", "MACEIO", "MANAUS", "NATAL", "PALMAS", "POA", "PVH", "RECIFE", "RB", "SALVADOR", "SLZ", "TERESINA", "VITORIA", "ACRE", "ALAGOAS", "AMAPA", "AMAZONAS", "BAHIA", "CEARA", "DF", "ES", "GOIAS", "MARANHAO", "MT", "MS", "MG", "PARA", "PARAIBA", "PARANA", "PERNAMBUCO", "PIAUI", "RJ", "RN", "RS", "RONDONIA", "RORAIMA", "SC", "SP", "SERGIPE", "TOCANTINS"};
+                            palavras = lerTema("temaEstadosCapitais.txt");
                             break;
 
                         default:
@@ -286,10 +304,16 @@ public class TCA {
                             System.out.println("\nNÚMERO ESCOLHIDO NÃO EXISTE, TEMA PADRÃO ESCOLHIDO");
                             BibliotecaTCA.esperar(2000);
                             System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = new String[]{"JAVA", "CODIGO", "COMPUTADOR", "UBUNTU", "TERMINAL", "WINDOWS"};
+                            palavras = lerTema("temaPadrao.txt");
                             break;
 
                     }//SWITCH (TEMAS)
+
+                    if (palavras == null) {
+                        System.out.println("\nNão foi possível carregar o tema.");
+                        BibliotecaTCA.esperar(3000);
+                        break;
+                    }
 
                     Random sorteio = new Random();
                     int posicao = sorteio.nextInt(palavras.length);
@@ -297,6 +321,7 @@ public class TCA {
 
                     jogar(palavraSecreta);
                     break;
+
                 // OPÇÃO 0 (MODO NORMAL)
                 ////////////////////////////////////////////////////////////////////////////////////////////////
                 
@@ -304,22 +329,45 @@ public class TCA {
                     System.out.println("\n\nModo Escolhido: PERSONALIZADO");
                     BibliotecaTCA.esperar(2000);
 
-                    System.out.println("\nVamos Lá!! Digite sua palavra secreta abaixo:");
-                    String palavraDoUsuario = sc.nextLine().trim().toUpperCase();
-                    BibliotecaTCA.limparTela();
+                    System.out.println("\nVamos Lá!! Digite sua palavra secreta abaixo:\n(OBS.: Use apenas letras de A a Z, sem espaços, sem acentos/outros caracteres, não deixe em branco)\n");
+                    
+                    // O valor inicial existe só para a variável ser declarada antes do while, e o laço sempre a substitui
+                    String palavraDoUsuario = "";
+                    boolean valida = false;
+
+                    while (!valida) {
+
+                        palavraDoUsuario = sc.nextLine().trim().toUpperCase();
+                        // "toUpperCase" converte uma String digitada para maiúsculo
+                        // "trim" ignora os espaços em branco ao lado da String. Ex.: "a "
+
+                        BibliotecaTCA.limparTela();
+                        valida = true;
+
+                        for (int i = 0; i < palavraDoUsuario.length(); i++) {
+
+                            char c = palavraDoUsuario.charAt(i);
+
+                            if (c < 'A' || c > 'Z') {
+                                valida = false;
+                                break;
+                            }
+                        }
+
+                        if (palavraDoUsuario.isEmpty()) {
+                            valida = false;
+                        }
+                        if (!valida) {
+                            System.out.println("\nA palavra digitada é inválida, por favor digite novamente:\n");
+                            BibliotecaTCA.esperar(3000);
+                        }   
+                    }
+                    //Este while repete até a palavra ser válida, ou seja: quando não há acentos/outros caracteres
 
                     jogar(palavraDoUsuario);
                     break;
+
                 // OPÇÃO 1 (MODO PERSONALIZADO)
-                ///////////////////////////////////////////////////////////////////////////////////////////////
-
-                case 2:
-                    System.out.println("\nModo Escolhido: EVIL HANGMAN");
-                    BibliotecaTCA.esperar(2000);
-
-                    System.out.println("\nBoa sorte...");
-
-                // OPÇÃO 2 (EVIL HANGMAN)
                 ///////////////////////////////////////////////////////////////////////////////////////////////
 
             } // SWITCH (OPÇÕES NO MENU)
