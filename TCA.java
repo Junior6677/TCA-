@@ -2,7 +2,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class TCA {
-
     
      static Random sorteio = new Random();
 
