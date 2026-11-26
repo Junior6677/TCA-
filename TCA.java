@@ -216,13 +216,18 @@ public class TCA {
         }
 
         String[] palavras = texto.trim().split("\n");
+
+        for (int i = 0; i < palavras.length; i++) {
+            palavras[i] = palavras[i].trim();
+        }
+
         return palavras;
     }
     // "split("\n")" transforma em vetor (sugestão de BibliotecaTCA.java, linha 585) 
     // "null" indica arquivo ausente
 
     public static void main(String[] args) {
-
+        
         BibliotecaTCA.esperar(1000);
         System.out.println("\nJogo feito por:\n\nJunior Felipe L. dos Anjos\nRaphael Victor D. Eleoteri");
         BibliotecaTCA.esperar(4000);
