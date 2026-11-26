@@ -232,105 +232,118 @@ public class TCA {
         System.out.println("\nJogo feito por:\n\nJunior Felipe L. dos Anjos\nRaphael Victor D. Eleoteri");
         BibliotecaTCA.esperar(4000);
 
-        String[] opcoes = {"MODO NORMAL", "MODO PERSONALIZADO"};
+        String[] minigames = {"JOGO DA PHORKA", "BATALHA NAVAL"};
 
         while (true) {
 
-            int escolha = BibliotecaTCA.escolherNoMenu("JOGO DA PHORKA", opcoes);
+            int escolhaJogos = BibliotecaTCA.escolherNoMenu("ESCOLHA SEU MINIGAME:", minigames);
             BibliotecaTCA.limparTela();
 
-            if (escolha == -1) {
+            if (escolhaJogos == -1) {
                 // ESC foi pressionado: encerra o programa
                 System.out.println("Obrigado por jogar :)\n");
                 break;
             }
 
-            switch (escolha) {
+            switch (escolhaJogos) {
+
                 case 0:
-                    System.out.println("\nModo Escolhido: NORMAL");
-                    BibliotecaTCA.esperar(2000);
 
-                    System.out.println("\nEscolha seu tema: \n0 => tema padrão \n1 => verbos \n2 => nomes \n3 => adjetivos \n4 => estados e capitais\n");
+                    String[] modosJogoDaPhorka = {"MODO NORMAL", "MODO PERSONALIZADO"};
+                    int escolhaJogoDaPhorka = BibliotecaTCA.escolherNoMenu("ESCOLHA O MODO DE JOGO:", modosJogoDaPhorka);
 
-                    int lista = sc.nextInt();
-                    sc.nextLine();
-                    // O "nextLine" acima consome o Enter que ficou no buffer depois do número
+                    switch(modosJogoDaPhorka){
 
-                    String[] palavras;
+                        case 0 : 
 
-                    switch (lista) {
+                        System.out.println("\nModo Escolhido: NORMAL");
+                        BibliotecaTCA.esperar(2000);
 
-                        case 0:
+                        System.out.println("\nEscolha seu tema: \n0 => tema padrão \n1 => verbos \n2 => nomes \n3 => adjetivos \n4 => estados e capitais\n");
 
-                            BibliotecaTCA.limparTela();
-                            System.out.println("\nTEMA ESCOLHIDO: PADRÃO");
-                            BibliotecaTCA.esperar(2000);
-                            System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = lerTema("temaPadrao.txt");
+                        int lista = sc.nextInt();
+                        sc.nextLine();
+                        // O "nextLine" acima consome o Enter que ficou no buffer depois do número
+
+                        String[] palavras;
+
+                        switch (lista) {
+
+                            case 0:
+
+                                BibliotecaTCA.limparTela();
+                                System.out.println("\nTEMA ESCOLHIDO: PADRÃO");
+                                BibliotecaTCA.esperar(2000);
+                                System.out.println("\nVamos Lá!! Descubra a palavra secreta");
+                                palavras = lerTema("temaPadrao.txt");
+                                break;
+
+                            case 1:
+
+                                BibliotecaTCA.limparTela();
+                                System.out.println("\nTEMA ESCOLHIDO: VERBOS");
+                                BibliotecaTCA.esperar(2000);
+                                System.out.println("\nVamos Lá!! Descubra a palavra secreta");
+                                palavras = lerTema("temaVerbos.txt");
+                                break;
+
+                            case 2:
+
+                                BibliotecaTCA.limparTela();
+                                System.out.println("\nTEMA ESCOLHIDO: NOMES");
+                                BibliotecaTCA.esperar(2000);
+                                System.out.println("\nVamos Lá!! Descubra a palavra secreta");
+                                palavras = lerTema("temaNomes.txt");
+                                break;
+
+                            case 3:
+
+                                BibliotecaTCA.limparTela();
+                                System.out.println("\nTEMA ESCOLHIDO: ADJETIVOS");
+                                BibliotecaTCA.esperar(2000);
+                                System.out.println("\nVamos Lá!! Descubra a palavra secreta");
+                                palavras = lerTema("temaAdjetivos.txt"); 
+                                break;
+
+                            case 4:
+
+                                BibliotecaTCA.limparTela();
+                                System.out.println("\nTEMA ESCOLHIDO: ESTADOS E CAPITAIS");
+                                BibliotecaTCA.esperar(2000);
+                                System.out.println("\nVamos Lá!! Descubra a palavra secreta");
+                                palavras = lerTema("temaEstadosCapitais.txt");
+                                break;
+
+                            default:
+
+                                BibliotecaTCA.limparTela();
+                                System.out.println("\nNÚMERO ESCOLHIDO NÃO EXISTE, TEMA PADRÃO ESCOLHIDO");
+                                BibliotecaTCA.esperar(2000);
+                                System.out.println("\nVamos Lá!! Descubra a palavra secreta");
+                                palavras = lerTema("temaPadrao.txt");
+                                break;
+
+                        }//SWITCH (TEMAS)
+
+                        if (palavras == null) {
+                            System.out.println("\nNão foi possível carregar o tema.");
+                            BibliotecaTCA.esperar(3000);
                             break;
+                        }
 
-                        case 1:
+                        int posicao = sorteio.nextInt(palavras.length);
+                        String palavraSecreta = palavras[posicao];
+                        
+                        jogar(palavraSecreta);
+                        break;
 
-                            BibliotecaTCA.limparTela();
-                            System.out.println("\nTEMA ESCOLHIDO: VERBOS");
-                            BibliotecaTCA.esperar(2000);
-                            System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = lerTema("temaVerbos.txt");
-                            break;
-
-                        case 2:
-
-                            BibliotecaTCA.limparTela();
-                            System.out.println("\nTEMA ESCOLHIDO: NOMES");
-                            BibliotecaTCA.esperar(2000);
-                            System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = lerTema("temaNomes.txt");
-                            break;
-
-                        case 3:
-
-                            BibliotecaTCA.limparTela();
-                            System.out.println("\nTEMA ESCOLHIDO: ADJETIVOS");
-                            BibliotecaTCA.esperar(2000);
-                            System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = lerTema("temaAdjetivos.txt"); 
-                            break;
-
-                        case 4:
-
-                            BibliotecaTCA.limparTela();
-                            System.out.println("\nTEMA ESCOLHIDO: ESTADOS E CAPITAIS");
-                            BibliotecaTCA.esperar(2000);
-                            System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = lerTema("temaEstadosCapitais.txt");
-                            break;
+                    // OPÇÃO 0 (MODO NORMAL)
+                    ////////////////////////////////////////////////////////////////////////////////////////////////
+                    
 
                         default:
-
-                            BibliotecaTCA.limparTela();
-                            System.out.println("\nNÚMERO ESCOLHIDO NÃO EXISTE, TEMA PADRÃO ESCOLHIDO");
-                            BibliotecaTCA.esperar(2000);
-                            System.out.println("\nVamos Lá!! Descubra a palavra secreta");
-                            palavras = lerTema("temaPadrao.txt");
-                            break;
-
-                    }//SWITCH (TEMAS)
-
-                    if (palavras == null) {
-                        System.out.println("\nNão foi possível carregar o tema.");
-                        BibliotecaTCA.esperar(3000);
-                        break;
                     }
-
-                    int posicao = sorteio.nextInt(palavras.length);
-                    String palavraSecreta = palavras[posicao];
-
-                    jogar(palavraSecreta);
-                    break;
-
-                // OPÇÃO 0 (MODO NORMAL)
-                ////////////////////////////////////////////////////////////////////////////////////////////////
-                
+                    
                 case 1:
                     System.out.println("\n\nModo Escolhido: PERSONALIZADO");
                     BibliotecaTCA.esperar(2000);
