@@ -3,6 +3,9 @@ import java.util.Scanner;
 
 public class TCA {
 
+    
+     static Random sorteio = new Random();
+
     public static Scanner sc = new Scanner(System.in);
 
     public static final String[][] BONECO = {
@@ -225,7 +228,7 @@ public class TCA {
         System.out.println("\nJogo feito por:\n\nJunior Felipe L. dos Anjos\nRaphael Victor D. Eleoteri");
         BibliotecaTCA.esperar(4000);
 
-        String[] opcoes = {"MODO NORMAL", "MODO PERSONALIZADO"};
+        String[] opcoes = {"MODO NORMAL", "MODO PERSONALIZADO", "DESCOBRIR BINARIO"};
 
         while (true) {
 
@@ -315,7 +318,6 @@ public class TCA {
                         break;
                     }
 
-                    Random sorteio = new Random();
                     int posicao = sorteio.nextInt(palavras.length);
                     String palavraSecreta = palavras[posicao];
 
@@ -369,11 +371,158 @@ public class TCA {
 
                 // OPÇÃO 1 (MODO PERSONALIZADO)
                 ///////////////////////////////////////////////////////////////////////////////////////////////
+                
+                case 2:
+                System.out.println("\n\nModo Escolhido: DESCOBRIR BINARIO");
+                BibliotecaTCA.esperar(2000);
+                System.out.println("\nESCOLHA O TAMANHO DE BITS DO BINARIO:  \n 0 => 4 BITS \n 1 => 8 BITS \n  2 => 16 BITS  ");
+                int listaBinaria = sc.nextInt();
 
-            } // SWITCH (OPÇÕES NO MENU)
+                switch (listaBinaria) {
 
-        } // WHILE
+                    case 0:
+                        
+                    System.out.println("\n 4 BITS");
+                    int[] binario = new int[4];
 
-    } // MAIN
+                    for(int i = 0; i < binario.length; i++){
 
-} // CLASS
+                        binario[i] = sorteio.nextInt(2);
+
+                    }
+
+                    int soma = 0;
+                    for(int j = 0; j < binario.length; j++){
+
+                        soma = soma * 2 + binario[j];
+
+                    }
+                    
+                    System.out.println("\nO binario eh:"+binario);
+                    int resposta = sc.nextInt();
+                    sc.nextLine();
+
+                    if (resposta == soma) {
+                        
+                       System.out.printf("PARABENS, VOCE GANHOU, O VALOR DO BINARIO ERA d%", soma);
+
+                    }else{
+
+                       System.out.printf("ERROU, VOCE perdeu, O VALOR DO BINARIO ERA d%", soma);
+
+
+                    }
+
+                        break;
+                    case 1:
+                    
+                    System.out.println("\n 8 BITS");
+                    binario = new int[8];
+
+                     for(int z = 0; z < binario.length; z++){
+
+                        binario[z] = sorteio.nextInt(2);
+
+                    }
+
+                    soma = 0;
+                    for(int y = 0; y < binario.length; y++){
+
+                        soma = soma * 2 + binario[y];
+
+                    }
+                    
+                    System.out.println("\nO binario eh:"+binario);
+                    resposta = sc.nextInt();
+                    sc.nextLine();
+
+                    if (resposta == soma) {
+                        
+                       System.out.printf("PARABENS, VOCE GANHOU, O VALOR DO BINARIO ERA d%", soma);
+
+                    }else{
+
+                       System.out.printf("ERROU, VOCE perdeu, O VALOR DO BINARIO ERA d%", soma);
+
+
+                    }
+
+
+                        break;
+                    case 2:
+                    
+                    System.out.println("\n 16 BITS");
+                    binario = new int[16];
+
+                     for(int x = 0; x < binario.length; x++){
+
+                        binario[x] = sorteio.nextInt(2);
+
+                    }
+
+                    soma = 0;
+                    for(int w = 0; w < binario.length; w++){
+
+                        soma = soma * 2 + binario[w];
+
+                    }
+                    
+                    System.out.println("\nO binario eh:"+binario);
+                    resposta = sc.nextInt();
+                    sc.nextLine();
+
+                    if (resposta == soma) {
+                        
+                       System.out.printf("PARABENS, VOCE GANHOU, O VALOR DO BINARIO ERA d%", soma);
+
+                    }else{
+
+                       System.out.printf("ERROU, VOCE perdeu, O VALOR DO BINARIO ERA d%", soma);
+
+
+                    }
+
+                        break;
+                    default:
+
+                     binario = new int[8];
+
+                     for(int a = 0; a < binario.length; a++){
+
+                        binario[a] = sorteio.nextInt(2);
+
+                    }
+
+                    soma = 0;
+                    for(int b = 0; b < binario.length; b++){
+
+                        soma = soma * 2 + binario[b];
+
+                    }
+                    
+                    System.out.println("\nO binario eh:"+binario);
+                    resposta = sc.nextInt();
+                    sc.nextLine();
+
+                    if (resposta == soma) {
+                        
+                       System.out.printf("PARABENS, VOCE GANHOU, O VALOR DO BINARIO ERA d%", soma);
+
+                    }else{
+
+                       System.out.printf("ERROU, VOCE perdeu, O VALOR DO BINARIO ERA d%", soma);
+
+
+                    }
+
+                        break;
+
+                }  // SWITCH (opçoes do descobrir binario)
+
+            }  // SWITCH (opçoes do menu)
+
+        }  // WHILE
+
+    }  // MAIN
+
+}  // CLASS
